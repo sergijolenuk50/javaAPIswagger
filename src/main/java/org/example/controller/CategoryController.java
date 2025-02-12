@@ -81,12 +81,8 @@ public class CategoryController {
 
     // Видалити категорію
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
-        return repository.findById(id)
-                .map(category -> {
-                    repository.delete(category);
-                    return ResponseEntity.noContent().build(); // Відповідь без тіла (Void)
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build()); // Відповідь, якщо категорії не знайдено
+    public void deleteCategory(@PathVariable Integer id) {
+        var entity = repository.findById(id).get();
+        repository.delete(entity);
     }
 }
