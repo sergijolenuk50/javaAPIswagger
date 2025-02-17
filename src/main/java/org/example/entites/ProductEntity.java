@@ -1,36 +1,37 @@
 package org.example.entites;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "tbl_categories")
-public class CategoryEntity {
+@Table(name="tbl_products")
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="date_created")
+    @Column(name = "date_crated")
     private LocalDateTime creationTime;
 
-    //@NotNull
-    //@Size(min = 1, max = 200)
     @Column(length = 200, nullable = false)
     private String name;
-
-    @Column(length = 255)
-    private String image;
 
     @Column(length = 40000)
     private String description;
 
-//    @JsonManagedReference
-    //@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-   // private List<ProductEntity> products;
+    @Column(nullable = false)
+    private Double price;
 
+//    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name="category_id", nullable = false)
+    private CategoryEntity category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImageEntity> images;
 }

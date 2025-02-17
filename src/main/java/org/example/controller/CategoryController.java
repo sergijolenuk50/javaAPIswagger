@@ -112,17 +112,22 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryEntity create(CategoryCreateDTO dto) {
+    public CategoryEntity create(@RequestBody CategoryCreateDTO dto) {
         return categoryService.create(dto);
     }
 
     @PutMapping
-    public CategoryEntity edit(CategoryEditDTO dto) {
+    public CategoryEntity edit(@RequestBody CategoryEditDTO dto) {
         return categoryService.edit(dto);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         categoryService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public CategoryEntity getById(@PathVariable int id) {
+        return categoryService.getById(id);
     }
 }

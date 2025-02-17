@@ -50,4 +50,9 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         categoryRepository.delete(entity);
     }
+
+    public CategoryEntity getById(int id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+    }
 }
