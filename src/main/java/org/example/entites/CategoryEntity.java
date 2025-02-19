@@ -30,7 +30,7 @@ public class CategoryEntity {
     private String description;
 
 //    @JsonManagedReference
-    //@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-   // private List<ProductEntity> products;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductEntity> products;
 
 }
