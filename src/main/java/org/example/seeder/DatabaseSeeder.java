@@ -89,7 +89,7 @@ public class DatabaseSeeder {
 
     private ProductImageEntity createProductImage(String imageUrl, ProductEntity product) {
         ProductImageEntity image = new ProductImageEntity();
-        image.setImageUrl(imageUrl);
+        image.setName(imageUrl);
         image.setPriority(1);
         image.setProduct(product);
         return image;
