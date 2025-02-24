@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.dto.product.ProductItemDto;
 import org.example.dto.product.ProductPostDto;
+import org.example.dto.product.ProductPutDto;
 import org.example.entites.ProductEntity;
 import org.example.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,19 @@ public class ProductController {
         ProductEntity createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @RequestBody ProductPostDto product) {
-        return productService.updateProduct(id, product)
-                ? ResponseEntity.ok().build()
-                : ResponseEntity.notFound().build();
-    }
+//ПЕРЕРОБЛЮЄМО КОНТРОЛЛЕ
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @RequestBody ProductPutDto product) {
+//        return productService.updateProduct(id, product)
+//                ? ResponseEntity.ok().build()
+//                : ResponseEntity.notFound().build();
+//    }
+@PutMapping(path = "/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
+public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @ModelAttribute ProductPutDto product) {
+    return productService.updateProduct(id, product)
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.notFound().build();
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {

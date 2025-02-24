@@ -100,6 +100,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -112,13 +114,19 @@ public class CategoryController {
         return categoryService.getList();
     }
 
-    @PostMapping
-    public CategoryEntity create(@RequestBody CategoryCreateDTO dto) {
+    @PostMapping (consumes = MULTIPART_FORM_DATA_VALUE) //в запиті будуть передаватись файли в тілі запиту
+    public CategoryEntity create(@ModelAttribute CategoryCreateDTO dto) {
         return categoryService.create(dto);
     }
+    //ПЕРЕРОБЛЮЄМО КОНТРОЛЛЕР
+//    @PutMapping
+//    public CategoryEntity edit(@RequestBody CategoryEditDTO dto) {
+//        return categoryService.edit(dto);
+//    }
 
-    @PutMapping
-    public CategoryEntity edit(@RequestBody CategoryEditDTO dto) {
+    @PutMapping(path="/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
+    public CategoryEntity edit(@PathVariable int id, @ModelAttribute CategoryEditDTO dto) {
+        dto.setId(id);
         return categoryService.edit(dto);
     }
 
