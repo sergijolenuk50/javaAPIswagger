@@ -41,12 +41,22 @@ public class ProductController {
 //                ? ResponseEntity.ok().build()
 //                : ResponseEntity.notFound().build();
 //    }
-@PutMapping(path = "/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @ModelAttribute ProductPostDto product) {
-    return productService.updateProduct(id, product)
-            ? ResponseEntity.ok().build()
-            : ResponseEntity.notFound().build();
-}
+//@PutMapping(path = "/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
+//public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @ModelAttribute ProductPostDto product) {
+//    return productService.updateProduct(id, product)
+//            ? ResponseEntity.ok().build()
+//            : ResponseEntity.notFound().build();
+//}
+
+    @PutMapping(path = "/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestBody ProductPostDto product) {
+        boolean updated = productService.updateProduct(id, product);
+        if (updated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {

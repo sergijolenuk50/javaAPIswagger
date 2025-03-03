@@ -13,4 +13,7 @@ public class ProductPostDto {
     private int categoryId;
     //модуль щоб створювати фото в продукті
     private List<MultipartFile> images;
+
+    // Модуль для зображень, які потрібно видалити
+    private List<String> removeImages; // додали поле для назв зображень
 }

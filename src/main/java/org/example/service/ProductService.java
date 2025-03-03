@@ -193,6 +193,19 @@ public class ProductService {
 //            productImageRepository.delete(removeImage);
 //        }
 
+        // Перевіряємо наявність і обробляємо видалення зображень
+        if (product.getRemoveImages() != null) {
+            for (var img : product.getRemoveImages()) {
+                var removeImage = productImageRepository.findByName(img);
+                if (removeImage.isPresent()) {
+                    // Видаляємо фото з сервера
+                    fileService.remove(img);
+                    // Видаляємо фото з бази даних
+                    productImageRepository.delete(removeImage.get());
+                }
+            }
+        }
+        // Оновлюємо або додаємо нові зображення
         int priority = 1;
         for (var img : product.getImages()) {
             ProductImageEntity image = new ProductImageEntity();
@@ -205,6 +218,19 @@ public class ProductService {
         }
 
         return true;
+
+//        int priority = 1;
+//        for (var img : product.getImages()) {
+//            ProductImageEntity image = new ProductImageEntity();
+//            var imageName = fileService.load(img);
+//            image.setName(imageName);
+//            image.setPriority(priority);
+//            image.setProduct(entity);
+//            productImageRepository.save(image);
+//            priority++;
+//        }
+//
+//        return true;
     }
 
     public boolean deleteProduct(Integer id) {
