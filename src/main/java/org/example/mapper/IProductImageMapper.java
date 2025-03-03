@@ -13,3 +13,4 @@ public interface IProductImageMapper {
     ProductImageDto toDto(ProductImageEntity image);
     List<ProductImageDto> toDto(Iterable<ProductImageEntity> product);
 }
+

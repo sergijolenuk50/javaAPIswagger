@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.example.dto.product.ProductItemDto;
 import org.example.dto.product.ProductPostDto;
-import org.example.dto.product.ProductPutDto;
 import org.example.entites.ProductEntity;
 import org.example.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class ProductController {
 //                : ResponseEntity.notFound().build();
 //    }
 @PutMapping(path = "/{id}", consumes = MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @ModelAttribute ProductPutDto product) {
+public ResponseEntity<Void> updateProduct(@PathVariable Integer id, @ModelAttribute ProductPostDto product) {
     return productService.updateProduct(id, product)
             ? ResponseEntity.ok().build()
             : ResponseEntity.notFound().build();
