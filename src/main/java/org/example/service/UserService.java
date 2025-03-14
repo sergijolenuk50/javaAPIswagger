@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import org.example.config.security.JwtService;
 import org.example.dto.user.UserAuthDto;
+import org.example.dto.user.UserRegisterDto;
 import org.example.entites.UserEntity;
 import org.example.repository.IUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +18,21 @@ public class UserService {
     private final JwtService jwtService;
 
     // Реєстрація нового користувача
-    public void registerUser(UserEntity userEntity) {
-        if (userRepository.existsByUsername(userEntity.getUsername())) {
+//    public void registerUser(UserEntity userEntity) {
+//        if (userRepository.existsByUsername(userEntity.getUsername())) {
+//            throw new RuntimeException("Користувач з таким ім'ям вже існує");
+//        }
+//        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+//        userRepository.save(userEntity);
+//    }
+
+    public void registerUser(UserRegisterDto dto) {
+        if (userRepository.existsByUsername(dto.getUsername())) {
             throw new RuntimeException("Користувач з таким ім'ям вже існує");
         }
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        var userEntity = new UserEntity();
+        userEntity.setUsername(dto.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepository.save(userEntity);
     }
 

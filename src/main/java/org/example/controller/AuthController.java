@@ -4,16 +4,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.config.security.JwtService;
 import org.example.dto.user.UserAuthDto;
-import org.example.entites.UserEntity;
+import org.example.dto.user.UserRegisterDto;
 
 import org.example.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -21,13 +21,27 @@ public class AuthController {
     private final JwtService jwtService;
 
     // Реєстрація нового користувача
+//    @PostMapping("/register")
+//    public ResponseEntity<String> register(@Valid @RequestBody UserRegisterDto dto) {
+//        try {
+//            userService.registerUser(dto);
+//            return ResponseEntity.ok("Користувач успішно зареєстрований");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Помилка при реєстрації: " + e.getMessage());
+//        }
+//    }
+
+
+    // Реєстрація нового користувача
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody UserEntity userEntity) {
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDto dto) {
         try {
-            userService.registerUser(userEntity);
-            return ResponseEntity.ok("Користувач успішно зареєстрований");
+            //log.info("Отримано запит на реєстрацію: {}", dto);
+            userService.registerUser(dto);
+            return ResponseEntity.ok(Map.of("message", "Користувач успішно зареєстрований"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Помилка при реєстрації: " + e.getMessage());
+            //log.error("Помилка реєстрації", e);
+            return ResponseEntity.badRequest().body(Map.of("error", "Помилка при реєстрації: " + e.getMessage()));
         }
     }
 
