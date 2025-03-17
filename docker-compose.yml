@@ -28,10 +28,10 @@ services:
     image: sergijolenuk50/java-olenuk-api
     ports:
       - "4082:8084"
-    networks:
-     - myAppNetwork
-    depends_on:
-      - postgresServerDb
+#    networks:
+#     - myAppNetwork
+#   depends_on:
+#     - postgresServerDb
     volumes:
 #     - d:/volumes/olenuk-java/images:/app/images  # Use the volume name appvol here
      - /volumes/olenuk-java/images:/app/images  # Use the volume name appvol here
