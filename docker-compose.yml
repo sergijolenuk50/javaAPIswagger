@@ -4,24 +4,24 @@ networks:
     driver: bridge
 
 services:
-  postgresServerDb:
-    container_name: container-postgres
-    image: postgres:latest
-    ports:
-      - "5022:5432"
-    environment:
-      - POSTGRES_USER=olenukapi
-      - POSTGRES_PASSWORD=*dmUntdOidd3d_#WTi4B9ZoZp%rSDj4Imds07djc*
-      - POSTGRES_DB=olenukDb
-    networks:
-      - myAppNetwork
-    volumes:
+#  postgresServerDb:
+#    container_name: container-postgres
+#    image: postgres:latest
+#    ports:
+#      - "5022:5432"
+#    environment:
+#      - POSTGRES_USER=olenukapi
+#      - POSTGRES_PASSWORD=*dmUntdOidd3d_#WTi4B9ZoZp%rSDj4Imds07djc*
+#      - POSTGRES_DB=olenukDb
+#    networks:
+#      - myAppNetwork
+#    volumes:
 #       - d:/web/olenuk/postgresql:/var/lib/postgresql/data  # Use the volume name msvol here
-        - /data/postgresql/data:/var/lib/postgresql/data
-    deploy:
-      restart_policy:
-        condition: on-failure
-        max_attempts: 5
+#        - /data/postgresql/data:/var/lib/postgresql/data
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        max_attempts: 5
 
   app:
     container_name: olenuk_container
